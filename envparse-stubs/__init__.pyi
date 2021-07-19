@@ -27,6 +27,8 @@ class Env:
     # The `force` parameter is not allowed by these type annotations because it requires that `default` is a string,
     # rather than the type that will be returned by the method. Supporting this would complicate the type annotations.
 
+    # schema parameter is not supported as it makes it impossible to infer the types returned by this class' methods.
+    def __init__(self): ...
     # with default int
     @overload
     def int(
