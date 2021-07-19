@@ -4,6 +4,7 @@ from typing import (
     Dict,
     List,
     Optional,
+    Set,
     Tuple,
     Type,
     TypeVar,
@@ -108,6 +109,42 @@ class Env:
         *,
         postprocessor: Optional[Callable[[List[str]], List[str]]] = None,
     ) -> List[str]: ...
+    # with subcast; with default set
+    @overload
+    def set(
+        self,
+        var: str,
+        default: Set[_SubType],
+        *,
+        subcast: Union[Type[_SubType], None, Callable[[str], _SubType]],
+        postprocessor: Optional[Callable[[Set[_SubType]], Set[_SubType]]] = None,
+    ) -> Set[_SubType]: ...
+    # without subcast; with default set
+    @overload
+    def set(
+        self,
+        var: str,
+        default: Set[str],
+        *,
+        postprocessor: Optional[Callable[[Set[str]], Set[str]]] = None,
+    ) -> Set[str]: ...
+    # with subcast; without default
+    @overload
+    def set(
+        self,
+        var: str,
+        *,
+        subcast: Union[Type[_SubType], None, Callable[[str], _SubType]],
+        postprocessor: Optional[Callable[[Set[_SubType]], Set[_SubType]]] = None,
+    ) -> Set[_SubType]: ...
+    # without subcast; without default
+    @overload
+    def set(
+        self,
+        var: str,
+        *,
+        postprocessor: Optional[Callable[[Set[str]], Set[str]]] = None,
+    ) -> Set[str]: ...
     # with subcast; with default tuple
     @overload
     def tuple(
