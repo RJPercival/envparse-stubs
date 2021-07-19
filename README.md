@@ -5,8 +5,9 @@ This package adds type annotations for the [envparse](https://github.com/rconrad
 ## Known Issues
 
 - The `force` and `preprocessor` parameters have been omitted.
-- A `default` value of `None` is not allowed for `list()`, `tuple()` or `dict()`. Instead, use an empty list/tuple/dict
+- A `default` value of `None` is not allowed for `list()`, `set()`, `tuple()` or `dict()`. Instead, use an empty list/set/tuple/dict
   as the default.
+- A schema cannot be provided to `Env.__init__()`, as this would make it impossible to infer the return types of other methods.
 
 ## Author
 
