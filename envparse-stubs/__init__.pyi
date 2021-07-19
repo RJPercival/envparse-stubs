@@ -1,5 +1,6 @@
 import builtins
 from typing import (
+    Any,
     Callable,
     Dict,
     List,
@@ -227,6 +228,34 @@ class Env:
         *,
         postprocessor: Optional[Callable[[Dict[str, str]], Dict[str, str]]] = None,
     ) -> Dict[str, str]: ...
+    # with default dict
+    @overload
+    def json(
+        self,
+        var: str,
+        default: Dict[str, Any],
+        *,
+        postprocessor: Optional[Callable[[Dict[str, Any]], Dict[str, Any]]] = None,
+    ) -> Dict[str, Any]: ...
+    # with default `None`
+    @overload
+    def json(
+        self,
+        var: str,
+        default: Optional[str],
+        *,
+        postprocessor: Optional[
+            Callable[[Optional[Dict[str, Any]]], Optional[Dict[str, Any]]]
+        ] = None,
+    ) -> Optional[Dict[str, Any]]: ...
+    # without default
+    @overload
+    def json(
+        self,
+        var: str,
+        *,
+        postprocessor: Optional[Callable[[Dict[str, Any]], Dict[str, Any]]] = None,
+    ) -> Dict[str, Any]: ...
     # with default str
     @overload
     def str(
