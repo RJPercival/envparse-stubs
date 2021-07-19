@@ -274,5 +274,9 @@ class Env:
         *,
         postprocessor: Optional[Callable[[bool], bool]] = None,
     ) -> bool: ...
+    @staticmethod
+    def read_envfile(
+        path: Optional[builtins.str] = None, **overrides: builtins.str
+    ): ...
 
 env: Env
