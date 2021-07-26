@@ -1,0 +1,16 @@
+- case: bool_without_default
+  main: |
+    from envparse import env
+    var = env.bool("FOO")
+    reveal_type(var)  # N: Revealed type is "builtins.bool"
+- case: bool_with_bool_default
+  main: |
+    from envparse import env
+    var = env.bool("FOO", default=True)
+    reveal_type(var)  # N: Revealed type is "builtins.bool"
+- case: bool_with_none_default
+  main: |
+    from envparse import env
+    var = env.bool("FOO", default=None)
+    reveal_type(var)  # N: Revealed type is "Union[builtins.bool, None]"
+
