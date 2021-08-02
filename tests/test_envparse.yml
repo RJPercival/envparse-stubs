@@ -1,3 +1,4 @@
+# bool() tests
 - case: bool_without_default
   main: |
     from envparse import env
@@ -14,3 +15,29 @@
     var = env.bool("FOO", default=None)
     reveal_type(var)  # N: Revealed type is "Union[builtins.bool, None]"
 
+# list() tests
+- case: list_without_default
+  main: |
+    from envparse import env
+    var = env.list("FOO")
+    reveal_type(var)  # N: Revealed type is "builtins.list[builtins.str]"
+- case: list_with_empty_list_default
+  main: |
+    from envparse import env
+    var = env.list("FOO", default=[])
+    reveal_type(var)  # N: Revealed type is "builtins.list[builtins.str]"
+- case: list_with_subcast
+  main: |
+    from envparse import env
+    var = env.list("FOO", subcast=int)
+    reveal_type(var)  # N: Revealed type is "builtins.list[builtins.int*]"
+- case: list_with_subcast_and_empty_list_default
+  main: |
+    from envparse import env
+    var = env.list("FOO", subcast=int, default=[])
+    reveal_type(var)  # N: Revealed type is "builtins.list[builtins.int]"
+- case: list_with_int_list_default
+  main: |
+    from envparse import env
+    var = env.list("FOO", subcast=int, default=[1, 2, 3])
+    reveal_type(var)  # N: Revealed type is "builtins.list[builtins.int]"
